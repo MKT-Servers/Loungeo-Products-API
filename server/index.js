@@ -1,7 +1,7 @@
 const express = require('express');
 
 const app = express();
-const pgp = require('pg-promise')(/* options */);
+// const pgp = require('pg-promise')(/* options */);
 
 // const connection = {
 //   host: 'localhost',
