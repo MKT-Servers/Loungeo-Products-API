@@ -1,22 +1,17 @@
-const { Pool, Client } = require('pg');
-
-const environment = {
-  user: 'abefroman',
-  host: 'localhost',
-  database: 'loungeo',
-  port: 5432,
-};
+const { Pool} = require('pg');
+const environment = require('./environment.js');
 
 const pool = new Pool(environment);
-const client = new Client(environment);
+// const client = new Client(environment);
 
-pool.query('SELECT NOW()', (err, res) => {
-  console.log(err, res);
-  pool.end();
-});
-
-client.connect();
-client.query('SELECT * from product limit 5', (err, res) => {
-  console.log(err ? err : res) // Hello World!
-  client.end();
+pool.connect((err, client, done) => {
+  if (err) throw err
+  client.query('SELECT * FROM product WHERE id = $1', [5], (err, res) => {
+    done()
+    if (err) {
+      console.log(err.stack)
+    } else {
+      console.log(res.rows[0])
+    }
+  })
 });
