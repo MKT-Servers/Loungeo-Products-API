@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+const controller = require('./controller.js');
 
 // app.use(express.urlencoded({ extended: true}));
 
@@ -13,19 +13,11 @@ app.use(express.json());
 //     .then(callback);
 // };
 
-// const controllerGet = (req, res) => {
-//   const callback = (err, results) => {
-//     if (err) {
-//       res.send(err);
-//     } else {
-//       res.send(results);
-//     }
-//   };
-//   modelGet(callback);
-// };
+
 
 app.get('/', (req, res) => {
-  res.send('Hello from server/index.js');
+  controller.get(req, res);
+  // res.send('Hello from server/index.js');
   // Replace Hello World with code to query the database
   // controllerGet(req, res);
 });
