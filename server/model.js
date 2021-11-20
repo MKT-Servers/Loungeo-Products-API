@@ -1,8 +1,9 @@
-// const db = require('../../db/index.js');
+const db = require('../db/index.js');
 
 const get = (req, res, callback) => {
-
-  res.send('Hello from server/modell');
+  // db.connect();
+// console.log("hello server");
+  res.send(db.connect());
 
   // db.query(
   //   `SELECT * FROM groceries`,
