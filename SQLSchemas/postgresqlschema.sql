@@ -14,7 +14,7 @@ CREATE TABLE product (
   description TEXT NOT NULL,
   category varchar(255) NOT NULL,
   default_price varchar(255) NOT NULL,
-  CONSTRAINT product_pk PRIMARY KEY (id)
+  CONSTRAINT product_pk PRIMARY KEY (id)\
 ) WITH (
   OIDS=FALSE
 );

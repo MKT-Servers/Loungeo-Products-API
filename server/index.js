@@ -1,16 +1,7 @@
 const express = require('express');
 
 const app = express();
-// const pgp = require('pg-promise')(/* options */);
 
-// const connection = {
-//   host: 'localhost',
-//   port: 3000,
-//   database: 'loungeo',
-//   user: 'postgres',
-// };
-
-// const db = pgp(connection);
 
 // app.use(express.urlencoded({ extended: true}));
 
