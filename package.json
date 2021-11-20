@@ -1,0 +1,26 @@
+{
+  "name": "loungeo-products-api",
+  "version": "1.0.0",
+  "description": "An API endpoint for the Products module of the Loungeo website.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/index.js",
+    "build-data" : ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MKT-Servers/Loungeo-Products-API.git"
+  },
+  "author": "Keyser Soze",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MKT-Servers/Loungeo-Products-API/issues"
+  },
+  "homepage": "https://github.com/MKT-Servers/Loungeo-Products-API#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.7.1",
+    "pg-promise": "^10.11.1"
+  }
+}
