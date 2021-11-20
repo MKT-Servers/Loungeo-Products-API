@@ -1,17 +1,18 @@
-const { Pool} = require('pg');
-const environment = require('./environment.js');
+const { Pool } = require('pg');
+const config = require('./config.js');
 
-const pool = new Pool(environment);
-// const client = new Client(environment);
+const pool = new Pool(config);
 
-pool.connect((err, client, done) => {
-  if (err) throw err
-  client.query('SELECT * FROM product WHERE id = $1', [5], (err, res) => {
-    done()
+// module.exports
+
+pool.connect ((err, client, done) => {
+  if (err) throw err;
+  client.query('SELECT * FROM product WHERE id = $1', [9], (err, res) => {
+    done();
     if (err) {
-      console.log(err.stack)
+      console.log(err.stack);
     } else {
-      console.log(res.rows[0])
+      console.log(res.rows[0]);
     }
-  })
+  });
 });

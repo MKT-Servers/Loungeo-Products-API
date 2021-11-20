@@ -1,5 +1,4 @@
 const express = require('express');
-
 const app = express();
 
 
@@ -26,7 +25,7 @@ app.use(express.json());
 // };
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Hello from server/index.js');
   // Replace Hello World with code to query the database
   // controllerGet(req, res);
 });
