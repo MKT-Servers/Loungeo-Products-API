@@ -14,6 +14,7 @@ app.get('/products', (req, res) => {
     if (err) {
       res.status(400).send(err);
     } else {
+      console.log(result);
       res.status(200).send(result);
     }
   });
