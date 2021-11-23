@@ -11,14 +11,4 @@ const get = (req, res, cb) => {
   model.get(req, res, callback);
 };
 
-// const get = (req, res) => {
-//   model.get((err, data) => {
-//     if (err) {
-//       res.status(400).send();
-//     } else {
-//       res.status(200).send(data);
-//     }
-//   });
-// };
-
 module.exports = { get };
