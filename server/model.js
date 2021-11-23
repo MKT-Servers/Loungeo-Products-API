@@ -1,18 +1,24 @@
 const db = require('../db/index.js');
 
 const get = (req, res, callback) => {
-  // console.log('req.query in model.js: ', req.query);
-
   const text = 'SELECT * FROM product WHERE id = $1';
   const values = [867530];
-
   db.connect((err, client, done) => {
     if (err) throw err;
-    client.query(text, values, (err, res) => {
+    client.query(text, values, (error, result) => {
       done();
-      callback(err, res);
+      callback(error, result);
     });
   });
 };
+
+// const get = callback => {
+// const text = 'SELECT * FROM product WHERE id = $1';
+// const value = [867530];
+// db.connect((err, client, done) => {
+//   if (err) throw err;
+//   client.query(text, value, )
+// })
+// }
 
 module.exports = { get };

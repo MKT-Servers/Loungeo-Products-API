@@ -1,16 +1,24 @@
 const model = require('./model.js');
 
-const get = (req, res) => {
-  const callback = (err, res) => {
+const get = (req, res, cb) => {
+  const callback = (err, result) => {
     if (err) {
-      console.log(err.stack);
+      cb(err);
     } else {
-      console.log(res.rows[0]);
-      // res.send('Response from controller');
-      console.log('Properties of res: ', Object.keys(res));
+      cb(null, result.rows[0]);
     }
   };
   model.get(req, res, callback);
 };
+
+// const get = (req, res) => {
+//   model.get((err, data) => {
+//     if (err) {
+//       res.status(400).send();
+//     } else {
+//       res.status(200).send(data);
+//     }
+//   });
+// };
 
 module.exports = { get };
