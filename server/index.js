@@ -9,12 +9,13 @@ const controller = require('./controller.js');
 
 app.use(express.json());
 
-app.get('/products', (req, res) => {
+
+app.get('/products/:product_id', (req, res) => {
   controller.get(req, res, (err, result) => {
     if (err) {
       res.status(400).send(err);
     } else {
-      console.log(result);
+      // console.log(result);
       res.status(200).send(result);
     }
   });
