@@ -16,7 +16,11 @@ const getStyles = (req, res, cb) => {
     if (err) {
       cb(err);
     } else {
-      cb(null, result.rows[0]);
+
+      cb(null, result);
+
+      // cb(null, result.rows[0]);
+
     }
   };
   model.getStyles(req, res, callback);
