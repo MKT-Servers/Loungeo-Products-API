@@ -5,11 +5,7 @@ const getProduct = (req, res, cb) => {
     if (err) {
       cb(err);
     } else {
-
       cb(null, result);
-
-      // cb(null, result.rows[0]);
-
     }
   };
   model.getProduct(req, res, callback);
