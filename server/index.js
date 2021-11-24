@@ -10,7 +10,7 @@ const controller = require('./controller.js');
 app.use(express.json());
 
 app.get('/products/:product_id', (req, res) => {
-  controller.get(req, res, (err, result) => {
+  controller.getProduct(req, res, (err, result) => {
     if (err) {
       res.status(400).send(err);
     } else {
@@ -20,12 +20,13 @@ app.get('/products/:product_id', (req, res) => {
 });
 
 app.get('/products/:product_id/styles', (req, res) => {
-  controller.get(req, res, (err, result) => {
+  controller.getStyles(req, res, (err, result) => {
     if (err) {
       res.status(400).send(err);
     } else {
-      res.status(200).send('Heard it on styles');
-      // res.status(200).send(result);
+      // console.log(result);
+      // res.status(200).send('Heard it on styles');
+      res.status(200).send(result);
     }
   });
 });

@@ -1,6 +1,6 @@
 const model = require('./model.js');
 
-const get = (req, res, cb) => {
+const getProduct = (req, res, cb) => {
   const callback = (err, result) => {
     if (err) {
       cb(err);
@@ -8,7 +8,18 @@ const get = (req, res, cb) => {
       cb(null, result.rows[0]);
     }
   };
-  model.get(req, res, callback);
+  model.getProduct(req, res, callback);
 };
 
-module.exports = { get };
+const getStyles = (req, res, cb) => {
+  const callback = (err, result) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, result.rows[0]);
+    }
+  };
+  model.getStyles(req, res, callback);
+};
+
+module.exports = { getProduct, getStyles };
