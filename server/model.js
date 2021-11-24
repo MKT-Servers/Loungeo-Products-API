@@ -26,11 +26,12 @@ const getProduct = (req, res, callback) => {
 const getStyles = (req, res, callback) => {
 
   // Lines for querying styles table:
-  const text = 'SELECT * FROM styles WHERE product_id = $1';
+  const text = 'SELECT styles.style_id, styles.name, styles.sale_price, styles.original_price, styles.default_style FROM styles WHERE styles.product_id = $1';
   const values = req.params.product_id;
 
-  // const text = 'SELECT * FROM photos WHERE product_id = $1';
-  // const values = req.params.product_id;
+  // Lines for querying photos table:
+  const text = 'SELECT * FROM photos WHERE product_id = $1';
+  const values = req.params.product_id;
 
   db.connect((err, client, done) => {
     if (err) throw err;
@@ -38,15 +39,15 @@ const getStyles = (req, res, callback) => {
       done();
 
       // These lines make an array that will serve as the 'results' of the styles object
-      const reformattedStyles = result.rows.map((obj) => {
-        const rObj = {};
-        rObj.style_id = obj.style_id;
-        rObj.name = obj.name;
-        rObj.original_price = obj.original_price;
-        rObj.sale_price = obj.sale_price;
-        rObj['default?'] = obj.default_style;
-        return rObj;
-      });
+      // const reformattedStyles = result.rows.map((obj) => {
+      //   const rObj = {};
+      //   rObj.style_id = obj.style_id;
+      //   rObj.name = obj.name;
+      //   rObj.original_price = obj.original_price;
+      //   rObj.sale_price = obj.sale_price;
+      //   rObj['default?'] = obj.default_style;
+      //   return rObj;
+      // });
 
 
       console.log('Result: ', reformattedStyles);
