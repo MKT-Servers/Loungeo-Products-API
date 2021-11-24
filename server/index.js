@@ -24,14 +24,20 @@ app.get('/products/:product_id/styles', (req, res) => {
     if (err) {
       res.status(400).send(err);
     } else {
-      // console.log(result);
-      // res.status(200).send('Heard it on styles');
       res.status(200).send(result);
     }
   });
 });
 
-// Make a route for each atelier query
+app.get('/products/:product_id/related', (req, res) => {
+  controller.getRelated(req, res, (err, result) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.status(200).send(result);
+    }
+  });
+});
 
 app.listen(3000, () => {
   console.log('App listening at http://localhost:3000');

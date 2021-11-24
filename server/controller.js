@@ -22,4 +22,15 @@ const getStyles = (req, res, cb) => {
   model.getStyles(req, res, callback);
 };
 
-module.exports = { getProduct, getStyles };
+const getRelated = (req, res, cb) => {
+  const callback = (err, result) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, result);
+    }
+  };
+  model.getRelated(req, res, callback);
+};
+
+module.exports = { getProduct, getStyles, getRelated };
