@@ -7,7 +7,6 @@ const getProduct = (req, res, callback) => {
     if (err) throw err;
     client.query(text, [values], (error, result) => {
       done();
-      console.log('Initial result from product query: ', result.rows[0]);
       callback(error, result);
     });
   });
