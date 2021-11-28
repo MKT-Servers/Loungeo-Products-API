@@ -9,8 +9,24 @@ export const options = {
   ],
 };
 
+const max = 1000000;
+const productTested = 1 + Math.floor(Math.random() * max);
+console.log('Testing Product Number :', productTested);
+
+// Un-comment one of the following lines to test an endpoint:
+
+// 'Product' endpoint
+// const endpoint = 'http://localhost:3000/products/' + productTested;
+
+// 'Related items' endpoint
+const endpoint = 'http://localhost:3000/products/' + productTested + '/related';
+// const endpoint = 'http://localhost:3000/products/888888/related';
+
+// In the terminal, enter the following command:
+// k6 run script.js
+
 export default function () {
-  const res = http.get('https://httpbin.org/');
+  const res = http.get(endpoint);
   check(res, { 'status was 200': (r) => r.status == 200 });
   sleep(1);
 }
