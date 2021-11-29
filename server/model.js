@@ -48,7 +48,8 @@ const getStyles = (req, res, callback) => {
         rObj['default?'] = obj.default_style;
         return rObj;
       });
-
+      // console.log('Number of hits: ', result.length);
+      // console.log('Raw Returns: ', result.rows);
       console.log('Result: ', reformattedStyles);
       callback(error, 'Here is what you want to send to client');
     });
