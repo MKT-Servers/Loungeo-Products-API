@@ -1,3 +1,5 @@
+// In the terminal, navigate to the 'server' directory and enter the following command:
+// k6 run script.js
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 
@@ -16,14 +18,12 @@ console.log('Testing Product Number :', productTested);
 // Un-comment one of the following lines to test an endpoint:
 
 // 'Product' endpoint
-// const endpoint = 'http://localhost:3000/products/' + productTested;
+const endpoint = `http://localhost:3000/products/${productTested}`;
 
 // 'Related items' endpoint
-const endpoint = 'http://localhost:3000/products/' + productTested + '/related';
-// const endpoint = 'http://localhost:3000/products/888888/related';
+// const endpoint = `http://localhost:3000/products/${productTested}/related`;
 
-// In the terminal, enter the following command:
-// k6 run script.js
+
 
 export default function () {
   const res = http.get(endpoint);
