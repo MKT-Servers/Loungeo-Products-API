@@ -24,9 +24,8 @@ const getProduct = (req, res, callback) => {
 };
 
 const getStyles = (req, res, callback) => {
-
   // Lines for querying styles table:
-  const text = 'SELECT styles.style_id, styles.name, styles.sale_price, styles.original_price, styles.default_style, photos.url, photos.thumbnail_url, skus.size, skus.quantity FROM styles, photos, skus WHERE styles.product_id = $1 AND photos.style_id = styles.style_id AND skus.style_id = styles.style_id';
+  const text = 'SELECT styles.style_id, styles.name, styles.sale_price, styles.original_price, styles.default_style, photos.photo_id, photos.url, photos.thumbnail_url, skus.sku_id, skus.size, skus.quantity FROM styles, photos, skus WHERE styles.product_id = $1 AND photos.style_id = styles.style_id AND skus.style_id = styles.style_id';
   const values = req.params.product_id;
 
   // Lines for querying photos table:
@@ -37,6 +36,26 @@ const getStyles = (req, res, callback) => {
     if (err) throw err;
     client.query(text, [values], (error, result) => {
       done();
+
+      const formattedReturn = {};
+      formattedReturn.product_id = values;
+      formattedReturn.results = [];
+      const stylesRegistered = {};
+      const photosRegistered = {};
+      const skusRegistered = {};
+
+      result.rows.forEach((element) => {
+        if (!stylesRegistered[element.style_id]) {
+          formattedReturn.results.push({
+            style_id: element.style_id,
+            name: element.name,
+            original_price: element.original_price,
+            sale_price: element.sale_price,
+            'default?': element.default_style,
+          });
+          stylesRegistered[element.style_id] = true;
+        }
+      });
 
       // These lines make an array that will serve as the 'results' of the styles object
       // const reformattedStyles = result.rows.map((obj) => {
@@ -49,8 +68,10 @@ const getStyles = (req, res, callback) => {
       //   return rObj;
       // });
       // console.log('Number of hits: ', result.rows.length);
-      console.log('Raw Returns: ', result.rows);
+      // console.log('Raw Returns: ', result.rows);
       // console.log('Result: ', reformattedStyles);
+      console.log('result.rows: ', result.rows[0]);
+      console.log('Formatted return: ', formattedReturn);
       callback(error, 'Here is what you want to send to client');
     });
   });
