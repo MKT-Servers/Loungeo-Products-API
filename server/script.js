@@ -18,12 +18,13 @@ console.log('Testing Product Number :', productTested);
 // Un-comment one of the following lines to test an endpoint:
 
 // 'Product' endpoint
-const endpoint = `http://localhost:3000/products/${productTested}`;
+// const endpoint = `http://localhost:3000/products/${productTested}`;
+
+// 'Styles' endpoint
+const endpoint = `http://localhost:3000/products/${productTested}/styles`;
 
 // 'Related items' endpoint
 // const endpoint = `http://localhost:3000/products/${productTested}/related`;
-
-
 
 export default function () {
   const res = http.get(endpoint);

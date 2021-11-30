@@ -2,7 +2,13 @@
 const db = require('../db/index.js');
 
 const getProduct = (req, res, callback) => {
-  const text = 'SELECT product.id, product.name, product.slogan, product.description, product.category, product.default_price, features.feature, features.value FROM product, features WHERE product.id = $1 AND features.product_id = $1';
+  const text = `SELECT product.id, product.name,
+  product.slogan, product.description,
+  product.category, product.default_price,
+  features.feature, features.value
+  FROM product, features
+  WHERE product.id = $1
+  AND features.product_id = $1`;
   const values = req.params.product_id;
   db.connect((err, client, done) => {
     if (err) throw err;
@@ -24,13 +30,16 @@ const getProduct = (req, res, callback) => {
 };
 
 const getStyles = (req, res, callback) => {
-  // Lines for querying styles table:
-  const text = 'SELECT styles.style_id, styles.name, styles.sale_price, styles.original_price, styles.default_style, photos.photo_id, photos.url, photos.thumbnail_url, skus.sku_id, skus.size, skus.quantity FROM styles, photos, skus WHERE styles.product_id = $1 AND photos.style_id = styles.style_id AND skus.style_id = styles.style_id';
+  const text = `SELECT styles.style_id, styles.name,
+  styles.sale_price, styles.original_price,
+  styles.default_style,
+  photos.photo_id, photos.url, photos.thumbnail_url,
+  skus.sku_id, skus.size, skus.quantity
+  FROM styles, photos, skus
+  WHERE styles.product_id = $1
+  AND photos.style_id = styles.style_id
+  AND skus.style_id = styles.style_id`;
   const values = req.params.product_id;
-
-  // Lines for querying photos table:
-  // const text = 'SELECT * FROM photos WHERE product_id = $1';
-  // const values = req.params.product_id;
 
   db.connect((err, client, done) => {
     if (err) throw err;
@@ -41,8 +50,6 @@ const getStyles = (req, res, callback) => {
       formattedReturn.product_id = values;
       formattedReturn.results = [];
       const stylesRegistered = {};
-      const photosRegistered = {};
-      const skusRegistered = {};
 
       result.rows.forEach((element) => {
         if (!stylesRegistered[element.style_id]) {
@@ -52,10 +59,37 @@ const getStyles = (req, res, callback) => {
             original_price: element.original_price,
             sale_price: element.sale_price,
             'default?': element.default_style,
+            photos: [],
+            skus: {},
           });
           stylesRegistered[element.style_id] = true;
         }
       });
+
+      // for (let i = 0; i < formattedReturn.results.length; i++) {
+      //   for (let j = 0; j < result.rows.length; j++) {
+      //     if (formattedReturn.results[i].style_id === result.rows[j].style_id) {
+      //       formattedReturn.results[i].skus[result.rows[j].sku_id] = result.rows[j].sku_id;
+      //       formattedReturn.results[i].skus[result.rows[j].sku_id]
+      //     }
+      //   }
+      // }
+
+//       const numberOfStyles = formattedReturn.results.length;
+//       const styleBlockSize = result.rows.length / numberOfStyles;
+//       console.log('# of styles: ', numberOfStyles);
+//       console.log('Block size: ', styleBlockSize);
+
+//       const singleStyleBatch = result.rows.slice(0, styleBlockSize);
+//       console.log('Length of Batch:', singleStyleBatch.length);
+
+// const skuRegistered = {};
+
+//       singleStyleBatch.forEach((element) => {
+//         if(!skuRegistered[element.sku_id]) {
+//           formattedReturn
+//         }
+//       })
 
       // These lines make an array that will serve as the 'results' of the styles object
       // const reformattedStyles = result.rows.map((obj) => {
@@ -70,9 +104,9 @@ const getStyles = (req, res, callback) => {
       // console.log('Number of hits: ', result.rows.length);
       // console.log('Raw Returns: ', result.rows);
       // console.log('Result: ', reformattedStyles);
-      console.log('result.rows: ', result.rows[0]);
-      console.log('Formatted return: ', formattedReturn);
-      callback(error, 'Here is what you want to send to client');
+      console.log('result.rows: ', result.rows);
+      // console.log('Formatted return: ', formattedReturn);
+      callback(error, formattedReturn);
     });
   });
 };
