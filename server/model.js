@@ -26,7 +26,7 @@ const getProduct = (req, res, callback) => {
 const getStyles = (req, res, callback) => {
 
   // Lines for querying styles table:
-  const text = 'SELECT styles.style_id, styles.name, styles.sale_price, styles.original_price, styles.default_style FROM styles WHERE styles.product_id = $1';
+  const text = 'SELECT styles.style_id, styles.name, styles.sale_price, styles.original_price, styles.default_style, photos.url, photos.thumbnail_url, skus.size, skus.quantity FROM styles, photos, skus WHERE styles.product_id = $1 AND photos.style_id = styles.style_id AND skus.style_id = styles.style_id';
   const values = req.params.product_id;
 
   // Lines for querying photos table:
@@ -39,18 +39,18 @@ const getStyles = (req, res, callback) => {
       done();
 
       // These lines make an array that will serve as the 'results' of the styles object
-      const reformattedStyles = result.rows.map((obj) => {
-        const rObj = {};
-        rObj.style_id = obj.style_id;
-        rObj.name = obj.name;
-        rObj.original_price = obj.original_price;
-        rObj.sale_price = obj.sale_price;
-        rObj['default?'] = obj.default_style;
-        return rObj;
-      });
-      // console.log('Number of hits: ', result.length);
-      // console.log('Raw Returns: ', result.rows);
-      console.log('Result: ', reformattedStyles);
+      // const reformattedStyles = result.rows.map((obj) => {
+      //   const rObj = {};
+      //   rObj.style_id = obj.style_id;
+      //   rObj.name = obj.name;
+      //   rObj.original_price = obj.original_price;
+      //   rObj.sale_price = obj.sale_price;
+      //   rObj['default?'] = obj.default_style;
+      //   return rObj;
+      // });
+      // console.log('Number of hits: ', result.rows.length);
+      console.log('Raw Returns: ', result.rows);
+      // console.log('Result: ', reformattedStyles);
       callback(error, 'Here is what you want to send to client');
     });
   });
