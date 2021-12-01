@@ -18,6 +18,7 @@ CREATE TABLE product (
 ) WITH (
   OIDS=FALSE
 );
+-- CREATE UNIQUE INDEX id_idx ON product (id);
 
 DROP TABLE IF EXISTS features;
 CREATE TABLE features (
@@ -29,6 +30,7 @@ CREATE TABLE features (
 ) WITH (
   OIDS=FALSE
 );
+-- CREATE INDEX product_id_idx ON features (product_id);
 
 DROP TABLE IF EXISTS styles;
 CREATE TABLE styles (
@@ -42,6 +44,7 @@ CREATE TABLE styles (
 ) WITH (
   OIDS=FALSE
 );
+-- CREATE INDEX st_st_product_id_idx ON styles (style_id);
 
 DROP TABLE IF EXISTS photos;
 CREATE TABLE photos (
@@ -53,6 +56,8 @@ CREATE TABLE photos (
 ) WITH (
   OIDS=FALSE
 );
+-- CREATE INDEX st_product_id_idx ON styles (product_id);
+-- CREATE INDEX ph_st_product_id_idx ON photos (style_id);
 
 DROP TABLE IF EXISTS skus;
 CREATE TABLE skus (
@@ -64,6 +69,7 @@ CREATE TABLE skus (
 ) WITH (
   OIDS=FALSE
 );
+-- CREATE INDEX sk_st_style_id_idx ON skus (style_id);
 
 DROP TABLE IF EXISTS related;
 CREATE TABLE related (
@@ -74,6 +80,7 @@ CREATE TABLE related (
 ) WITH (
   OIDS=FALSE
 );
+-- CREATE INDEX current_product_id_idx ON related (current_product_id);
 
 DROP TABLE IF EXISTS product_features;
 CREATE TABLE product_features (
@@ -84,6 +91,8 @@ CREATE TABLE product_features (
 ) WITH (
   OIDS=FALSE
 );
+
+
 
 -- ALTER TABLE styles ADD CONSTRAINT styles_fk0 FOREIGN KEY (product_id) REFERENCES products(id);
 
