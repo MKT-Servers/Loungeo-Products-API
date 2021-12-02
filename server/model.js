@@ -13,18 +13,23 @@ const getProduct = (req, res, callback) => {
   db.connect((err, client, done) => {
     if (err) throw err;
     client.query(text, [values], (error, result) => {
-      done();
-      const reformattedFeatures = result.rows.map((obj) => {
-        const rObj = {};
-        rObj.feature = obj.feature;
-        rObj.value = obj.value;
-        return rObj;
-      });
-      const singleProduct = result.rows[0];
-      delete singleProduct.feature;
-      delete singleProduct.value;
-      singleProduct.features = reformattedFeatures;
-      callback(error, singleProduct);
+      if (error) {
+        console.log(error);
+        callback(error);
+      } else {
+        done();
+        const reformattedFeatures = result.rows.map((obj) => {
+          const rObj = {};
+          rObj.feature = obj.feature;
+          rObj.value = obj.value;
+          return rObj;
+        });
+        const singleProduct = result.rows[0];
+        delete singleProduct.feature;
+        delete singleProduct.value;
+        singleProduct.features = reformattedFeatures;
+        callback(error, singleProduct);
+      }
     });
   });
 };
@@ -65,47 +70,6 @@ const getStyles = (req, res, callback) => {
           stylesRegistered[element.style_id] = true;
         }
       });
-
-      // for (let i = 0; i < formattedReturn.results.length; i++) {
-      //   for (let j = 0; j < result.rows.length; j++) {
-      //     if (formattedReturn.results[i].style_id === result.rows[j].style_id) {
-      //       formattedReturn.results[i].skus[result.rows[j].sku_id] = result.rows[j].sku_id;
-      //       formattedReturn.results[i].skus[result.rows[j].sku_id]
-      //     }
-      //   }
-      // }
-
-//       const numberOfStyles = formattedReturn.results.length;
-//       const styleBlockSize = result.rows.length / numberOfStyles;
-//       console.log('# of styles: ', numberOfStyles);
-//       console.log('Block size: ', styleBlockSize);
-
-//       const singleStyleBatch = result.rows.slice(0, styleBlockSize);
-//       console.log('Length of Batch:', singleStyleBatch.length);
-
-// const skuRegistered = {};
-
-//       singleStyleBatch.forEach((element) => {
-//         if(!skuRegistered[element.sku_id]) {
-//           formattedReturn
-//         }
-//       })
-
-      // These lines make an array that will serve as the 'results' of the styles object
-      // const reformattedStyles = result.rows.map((obj) => {
-      //   const rObj = {};
-      //   rObj.style_id = obj.style_id;
-      //   rObj.name = obj.name;
-      //   rObj.original_price = obj.original_price;
-      //   rObj.sale_price = obj.sale_price;
-      //   rObj['default?'] = obj.default_style;
-      //   return rObj;
-      // });
-      // console.log('Number of hits: ', result.rows.length);
-      // console.log('Raw Returns: ', result.rows);
-      // console.log('Result: ', reformattedStyles);
-      console.log('result.rows: ', result.rows);
-      // console.log('Formatted return: ', formattedReturn);
       callback(error, formattedReturn);
     });
   });

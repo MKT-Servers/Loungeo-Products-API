@@ -3,10 +3,6 @@ const express = require('express');
 const app = express();
 const controller = require('./controller.js');
 
-// app.use(express.urlencoded({ extended: true}));
-
-// app.use(express.static('client/dist'));
-
 app.use(express.json());
 
 app.get('/products/:product_id', (req, res) => {
